@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crash Predictor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #aaa;
+    }
+    .input-section {
+      margin-bottom: 2rem;
+    }
+    input[type="text"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      width: 250px;
+    }
+    .submit-id-btn, .predict-btn {
+      background: #ff004f;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: 0.3s;
+    }
+    .submit-id-btn:hover, .predict-btn:hover {
+      background: #ff3366;
+    }
+    .result {
+      margin-top: 2rem;
+      font-size: 2rem;
+      color: #00ff88;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="input-section" id="idSection">
+      <h1>Enter Your ID</h1>
+      <input type="text" id="userId" placeholder="Your ID..." maxlength="10" oninput="this.value=this.value.replace(/[^\d]/g,'')" />
+      <br />
+      <button class="submit-id-btn" onclick="submitId()">Submit</button>
+    </div>
+
+    <div id="predictSection" class="hidden">
+      <h1>Crash Predictor 2025</h1>
+      <p>Get your next coefficient prediction now</p>
+      <button class="predict-btn" onclick="predict()">Predict Now</button>
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    function submitId() {
+      const userId = document.getElementById('userId').value.trim();
+      const isNumeric = /^\d{1,10}$/.test(userId);
+      if (isNumeric) {
+        document.getElementById('idSection').classList.add('hidden');
+        document.getElementById('predictSection').classList.remove('hidden');
+      } else {
+        alert('Please enter a valid numeric ID (up to 10 digits)');
+      }
+    }
+
+    function predict() {
+      const min = 1.01;
+      const max = 5.0;
+      const randomCoef = (Math.random() * (max - min) + min).toFixed(2);
+      document.getElementById('result').innerText = `Next Coef: ${randomCoef}x`;
+    }
+  </script>
+</body>
+</html>
